@@ -4,6 +4,7 @@ ABI
 1 - Data loading and imputation 
 """
 import pandas as pd
+from utils import MultiColumnLabelEncoder
 
 def read_data():
     files = ["mongodb","react","socketio"]
@@ -14,6 +15,14 @@ def read_data():
         frames.append(df)
     return pd.concat(frames)
 
-if __name__ == "__main__":
+def data_preprocessing():
     data = read_data()
-    print(data.info())
+    cols = ["login","name","email","source"]
+    res = MultiColumnLabelEncoder(columns = cols).fit_transform(data)
+    res = res.fillna(0)
+    return res
+
+if __name__ == "__main__":
+    all_data = data_preprocessing()
+    print(all_data.info())
+    #res.to_excel(f"./data/all_data.xlsx")

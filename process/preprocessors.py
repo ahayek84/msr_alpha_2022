@@ -34,4 +34,4 @@ def create_dataset():
 if __name__ == "__main__":
     X, y = create_dataset()  
     print(X.info())
-    res.to_excel(f"./data/all_data.xlsx")
+    #res.to_excel(f"./data/all_data.xlsx")

@@ -27,11 +27,11 @@ def create_dataset():
     all_data = data_preprocessing()
     X = all_data.loc[:,all_data.columns != "survey"]
     y = all_data[["survey"]]
-    return X,y
+    X_res,y_res =MLSMOTE(X, y, 1)     #Applying MLSMOTE to augment the dataframe 
+    return X_res,y_res
 
 
 if __name__ == "__main__":
     X, y = create_dataset()  
-    X_res,y_res =MLSMOTE(X, y, 1)     #Applying MLSMOTE to augment the dataframe 
-    print(X_sub.info())
+    print(X.info())
     res.to_excel(f"./data/all_data.xlsx")

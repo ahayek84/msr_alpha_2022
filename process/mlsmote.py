@@ -31,7 +31,7 @@ def MLSMOTE(X_train, y_train,synthetic_balance_proportion=1):
     oversampler = svs.SMOTE(random_state=42, proportion=synthetic_balance_proportion)
     oversampler = svs.MulticlassOversampling(oversampler)
     
-    X_train = X_train.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
+    X_train = X_train.replace((np.inf, -np.inf, np.nan), -99999).reset_index(drop=True)
     
     X_train, y_train = oversampler.sample(X_train, y_train)
     X_train_res = pd.DataFrame(columns=cols)

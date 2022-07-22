@@ -28,16 +28,19 @@ def data_preprocessing(source="all"):
     res = res.fillna(0)
     return res
 
-def create_dataset(source="all"):
+def create_dataset(source="all",use_smote=True):
     all_data = data_preprocessing(source=source)
     all_data.to_excel(f"./data/all_data.xlsx")
     X = all_data.loc[:,all_data.columns != "survey"]
     y = [x[0] for x in all_data[["survey"]].values]
-    X_res,y_res = MLSMOTE(X, y, 1)     #Applying MLSMOTE to augment the dataframe 
+    if use_smote:
+        X_res,y_res = MLSMOTE(X, y, 1)     #Applying MLSMOTE to augment the dataframe 
+    else:
+        X_res,y_res = X,y
     return X_res,y_res
 
 
 if __name__ == "__main__":
-    X, y = create_dataset(source="react")  
+    X, y = create_dataset(source="react",use_smote=False)  
     print(X.shape)
     #X.to_excel(f"./data/all_X_data.xlsx")

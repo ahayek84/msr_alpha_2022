@@ -5,7 +5,7 @@ ABI
 """
 import pandas as pd
 from utils import MultiColumnLabelEncoder
-from mlsmote import get_minority_instace,MLSMOTE
+from mlsmote import MLSMOTE
 
 def read_data():
     files = ["mongodb","react","socketio"]
@@ -32,7 +32,6 @@ def create_dataset():
 
 if __name__ == "__main__":
     X, y = create_dataset()  
-    X_sub, y_sub = get_minority_instace(X, y)   #Getting minority instance of that datframe
-    #X_res,y_res =MLSMOTE(X_sub, y_sub, 100)     #Applying MLSMOTE to augment the dataframe 
-    #print(X_sub.info())
-    #res.to_excel(f"./data/all_data.xlsx")
+    X_res,y_res =MLSMOTE(X, y, 1)     #Applying MLSMOTE to augment the dataframe 
+    print(X_sub.info())
+    res.to_excel(f"./data/all_data.xlsx")

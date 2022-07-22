@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 import random
 from sklearn.datasets import make_classification
-from sklearn.neighbors import NearestNeighbors
 
-def create_dataset(n_sample=1000):
+
+def create_local_dataset(n_sample=1000):
     ''' 
     Create a unevenly distributed sample data set multilabel  
     classification using make_classification function
@@ -25,12 +25,15 @@ def create_dataset(n_sample=1000):
     #y = pd.get_dummies(y, prefix='class')
     return pd.DataFrame(X), y
 
-def MLSMOTE(X_train, y_train,synthetic_balance_proportion):
+def MLSMOTE(X_train, y_train,synthetic_balance_proportion=1):
     import smote_variants as svs
     cols = X_train.columns
-    oversampler = svs.SMOTE(proportion=synthetic_balance_proportion)
+    oversampler = svs.SMOTE(random_state=42, proportion=synthetic_balance_proportion)
     oversampler = svs.MulticlassOversampling(oversampler)
-    X_train, y_train = oversampler.sample(X_train.values, y_train)
+    
+    X_train = X_train.replace((np.inf, -np.inf, np.nan), 0).reset_index(drop=True)
+    
+    X_train, y_train = oversampler.sample(X_train, y_train)
     X_train_res = pd.DataFrame(columns=cols)
     i = 0
     for col in cols:
@@ -38,10 +41,8 @@ def MLSMOTE(X_train, y_train,synthetic_balance_proportion):
         i = i + 1
     return X_train_res, y_train
 
-if __name__=='main':
-    """
-    main function to use the MLSMOTE
-    """
-    X, y = create_dataset()                     #Creating a Dataframe
-    X_res,y_res =MLSMOTE(X, y, 0.12)     #Applying MLSMOTE to augment the dataframe
-    print(X.shape,len(y),X_res.shape,len(y_res))
+#print(" --------- ")
+#X, y = create_local_dataset()   
+#X_res,y_res =MLSMOTE(X, y, 0.12)     #Applying MLSMOTE to augment the dataframe
+#print(X.shape,len(y),X_res.shape,len(y_res)) 
+

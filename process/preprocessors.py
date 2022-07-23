@@ -8,6 +8,7 @@ import numpy as np
 from utils import MultiColumnLabelEncoder
 from mlsmote import MLSMOTE
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 def read_data():
     files = ["mongodb","react","socketio"]
@@ -42,6 +43,12 @@ def split(X,y,test_size=0.2):
     return X_train, X_test, y_train, y_test
 
 
+def scaler_fit(X):
+    scaler = MinMaxScaler()
+    scaler.fit(X)
+    return scaler
+
+
 def create_dataset(source="all",use_smote=True):
     all_data = data_preprocessing(source=source)
     all_data.to_excel(f"../data/all_data.xlsx")
@@ -52,6 +59,9 @@ def create_dataset(source="all",use_smote=True):
     else:
         X_res,y_res = X,y
     X_train, X_test, y_train, y_test = split(X_res,y_res)     #Applying MLSMOTE to augment the dataframe 
+    scaler = scaler_fit(X_train)
+    X_train = scaler.transform(X_train)
+    X_test = scaler.transform(X_test)
     return X_train, X_test, y_train, y_test
 
 

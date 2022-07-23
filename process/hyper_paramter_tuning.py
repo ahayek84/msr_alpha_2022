@@ -21,11 +21,12 @@ def get_params_model(model_type):
                         }
         model = RandomForestClassifier()
     else:
-        parameters = {"kernel": ["rbf","linear"], 
-                            "gamma": [1e-3, 1e-4], 
-                            "C": [1, 10, 100, 1000]
-                            }
-        model = SVC()
+        parameters = {
+            "C": [1, 10, 100, 1000],
+            # "gamma": [1e-3, 1e-4],
+            "max_iter": [500,100,1000,1500,2000,5000]
+            }
+        model = SVC(kernel="rbf", max_iter=2000)
     return parameters,model
 
 
@@ -34,16 +35,15 @@ def search_best_params(X_train,y_train,X_test,y_test,parameter,model):
     for score in ["precision_macro", "recall_macro","f1_macro"]:
 
         grid_search = GridSearchCV(model,
-                                        parameter,
-                                        n_jobs=-1,
-                                        scoring = score)
+                                    parameter,
+                                    n_jobs=-1,
+                                    scoring = score)
 
         grid_search.fit(X_train, y_train)
         print("Grid search completed.")
-        print(f"The best parameters for eval function {score} are:\n {grid_search.best_params_}")
-        print(f"The best score for eval function {score} is:\n {grid_search.best_score_}")
-        
-        print("The complete classification report for eval function {score} is:")
+        print(f"The best parameters for eval function {score} are: {grid_search.best_params_}")
+        print(f"The best score for eval function {score} is: {grid_search.best_score_}")
+        print(f"The complete classification report for eval function {score} is:")
         y_pred = grid_search.predict(X_test)
         print(classification_report(y_test, y_pred))
 

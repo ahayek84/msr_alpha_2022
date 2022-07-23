@@ -3,3 +3,4 @@ process/__pycache__/
 *.ipynb_checkpoints
 *.xlsx
 *.ipynb
+data/all_data.xlsx

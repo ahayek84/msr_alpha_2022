@@ -24,9 +24,9 @@ def get_params_model(model_type):
         parameters = {
             "C": [1, 10, 100, 1000],
             # "gamma": [1e-3, 1e-4],
-            "max_iter": [500,100,1000,1500,2000,5000]
+            "max_iter": [500,100,1000,1500,2000,5000,10000]
             }
-        model = SVC(kernel="rbf", max_iter=2000)
+        model = SVC(kernel="rbf")
     return parameters,model
 
 

@@ -1,2 +1,7 @@
-process/.ipynb_checkpoints/
 process/__pycache__/
+*.pyc
+*.ipynb_checkpoints
+*.xlsx
+*.ipynb
+data/all_data.xlsx
+

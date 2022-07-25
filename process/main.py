@@ -22,20 +22,20 @@ def get_model(modle_type):
 
 
 def eval(y_true, y_pred):
-    print(f'Classification report {classification_report(y_true, y_pred)}')
-    print(f'AUC score {roc_auc_score(y_true,y_pred)}')
+    print(f'Classification report \n {classification_report(y_true, y_pred,zero_division=0)}')
+    # print(f'AUC score {roc_auc_score(y_true,y_pred)}')
     print(f'Kappa score {cohen_kappa_score(y_true,y_pred)}')
 
 
 def train_eval(data, model, all_source_eval=False):
-    X_train, X_test, y_train, y_test, source_info = data
+    X_train, X_test, y_train, y_test, test_source_info = data
     model.fit(X_train,y_train)
     y_pred = model.predict(X_test)
     if all_source_eval:
         print("Get eval score for all the source type together")
         eval(y_test,y_pred)
     else:
-        data_sources = split_source(y_test,y_pred,source_info[1].values)
+        data_sources = split_source(y_test,y_pred,test_source_info.values)
         for k,v in data_sources.items():
             print(f"Get eval score for {k}")
             eval(v[0],v[1])
@@ -50,6 +50,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     combine_labels = True if args.combine_labels.lower() in ["true","yes"] else False
-    X_train, X_test, y_train, y_test, source_info = create_dataset(use_smote=False,combine_labels=combine_labels)
+    data = create_dataset(use_smote=False,combine_labels=combine_labels)
     model = get_model(args.model_type)
-    train_eval([X_train, X_test, y_train, y_test, source_info], model)
+    train_eval(data, model)

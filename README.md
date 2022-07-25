@@ -13,7 +13,8 @@ Description-This paper extends the expertise identification approaches, to the c
 - **Process delta**:
 In the paper they used the JavaScript libraries, the goal is to identify experts in these libraries based on their activity on GitHub.  REACT3 (a system for building enriched
 Web interfaces), MONGODB/NODE-MONGODB4 (the official Node.js driver for MongoDB database server), and SOCKETIO/SOCKET.IO5 (a library for real-time communication) as well as in backend development and selected MONGODB/NODE-MONGODB, a persistence library, and SOCKETIO/SOCKET.IO. Our Process is slightly different than paper, in pre-processing step we use Mongodb, react, socketio for Read the data from data folder and data source. Moreover, we use Smote_varient library to oversample minority classes and null value filled with 0. We use MultiColumnLabelEncoder to Label none numerical data ["login","name","email","source"].
-• Output delta: How does your output differ …? (What’s the significance of any differences observed?)
+
+- **Output delta**: How does your output differ …? (What’s the significance of any differences observed?)
 
 ### Implementation of reproduction with subsections as follows:
 - **Hardware requirements** : Google colab 

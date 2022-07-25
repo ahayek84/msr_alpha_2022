@@ -8,7 +8,10 @@ import numpy as np
 from utils import MultiColumnLabelEncoder
 from mlsmote import MLSMOTE
 from sklearn.model_selection import train_test_split
+<<<<<<< HEAD
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+=======
+>>>>>>> bbb57d94b59715f59e21cb3a85d496a4554e6826
 
 def read_data():
     files = ["mongodb","react","socketio"]

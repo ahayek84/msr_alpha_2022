@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 process/__pycache__/
+=======
+>>>>>>> bbb57d94b59715f59e21cb3a85d496a4554e6826
 *.pyc
 *.ipynb_checkpoints
 *.xlsx
 *.ipynb
+<<<<<<< HEAD
 data/all_data.xlsx
+=======
+>>>>>>> bbb57d94b59715f59e21cb3a85d496a4554e6826

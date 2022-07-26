@@ -65,6 +65,10 @@ def data_preprocessing(combine_labels,source="all"):
 
 
 def drop_cols(df,cols=[]):
+    """
+    login,name,email --> Not relevant for prediction
+    commitsImportLibrary,projectsImport ---> highly correlated feature
+    """
     drop = ["login","name","email","commitsImportLibrary","projectsImport"]
     
     if len(cols) != 0:

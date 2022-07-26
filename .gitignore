@@ -5,3 +5,4 @@ process/__pycache__/
 *.ipynb
 data/all_data.xlsx
 
+.DS_Store

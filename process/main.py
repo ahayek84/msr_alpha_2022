@@ -7,24 +7,23 @@ ALI
 """
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
-from sklearn.metrics import classification_report, roc_auc_score, cohen_kappa_score
+from sklearn.metrics import classification_report
 from preprocessors import create_dataset
 from utils import split_source
 import argparse
 
 
-def get_model(modle_type):
+def get_model(modle_type,combine_labels):
     if modle_type == "random_forest":
-        model = RandomForestClassifier(criterion= 'entropy', max_depth=8,max_features= 'sqrt',n_estimators = 100)
+        model = RandomForestClassifier(criterion= 'entropy', max_depth=10,max_features= "sqrt",n_estimators = 75,random_state=43)
     else:
-        model = SVC(C= 100,max_iter = 1000)
+        max_iter = 10000 if combine_labels else 2000
+        model = SVC(C= 1000,max_iter = max_iter)
     return model
 
 
 def eval(y_true, y_pred):
     print(f'Classification report \n {classification_report(y_true, y_pred,zero_division=0)}')
-    # print(f'AUC score {roc_auc_score(y_true,y_pred)}')
-    print(f'Kappa score {cohen_kappa_score(y_true,y_pred)}')
 
 
 def train_eval(data, model, all_source_eval=False):
@@ -51,5 +50,5 @@ if __name__ == "__main__":
     
     combine_labels = True if args.combine_labels.lower() in ["true","yes"] else False
     data = create_dataset(use_smote=False,combine_labels=combine_labels)
-    model = get_model(args.model_type)
+    model = get_model(args.model_type,combine_labels)
     train_eval(data, model)

@@ -19,11 +19,10 @@ def get_params_model(model_type):
                         "max_features":["sqrt", "log2", "auto"],
                         "criterion" :["entropy"]
                         }
-        model = RandomForestClassifier()
+        model = RandomForestClassifier(random_state=43)
     else:
         parameters = {
             "C": [1, 10, 100, 1000],
-            # "gamma": [1e-3, 1e-4],
             "max_iter": [500,100,1000,1500,2000,5000,10000]
             }
         model = SVC(kernel="rbf")
@@ -51,8 +50,10 @@ def search_best_params(X_train,y_train,X_test,y_test,parameter,model):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Fine-tuning for Random Forest and SVC using Grid search")
     parser.add_argument("--model_type", type=str, default="random_forest", help="Model type to fine-tune.")
+    parser.add_argument("--combine_labels", choices=["true","yes","false","no"],type=str.lower, help="Combine Novice and expert labels")
     args = parser.parse_args()
     
-    X_train, X_test, y_train, y_test = create_dataset()
+    combine_labels = True if args.combine_labels.lower() in ["true","yes"] else False
+    X_train, X_test, y_train, y_test, test_source = create_dataset(combine_labels=combine_labels)
     parameters, model = get_params_model(args.model_type)
     search_best_params(X_train,y_train,X_test,y_test,parameters, model)

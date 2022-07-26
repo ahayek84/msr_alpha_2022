@@ -4,6 +4,9 @@ import pandas as pd
 
 
 def MLSMOTE(X_train, y_train,synthetic_balance_proportion=0.3,n_neighbors=3):
+    """
+    Smote using the parameter given by author
+    """
     import smote_variants as svs
     cols = X_train.columns
     oversampler = svs.SMOTE(random_state=0 , proportion=synthetic_balance_proportion,n_neighbors=n_neighbors)

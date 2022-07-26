@@ -45,7 +45,7 @@ def train_eval(data, model, all_source_eval=False):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser("Train a Random Forest and SVC model")
     parser.add_argument("--model_type", type=str, default="random_forest", help="Model type to fine-tune.")
-    parser.add_argument("--combine_labels", choices=["true","yes","false","no"],type=str.lower, help="Combine Novice and expert labels")
+    parser.add_argument("--combine_labels", choices=["true","yes","false","no"],type=str.lower,default="true", help="Combine Novice and expert labels")
     args = parser.parse_args()
     
     combine_labels = True if args.combine_labels.lower() in ["true","yes"] else False

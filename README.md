@@ -22,6 +22,7 @@
 
 
     `$python -m hyper_paramter_tuning --model_type <model-type> --combine_labels <combine-labels>`
+
 3. Train the model and generate classification report.
 
 
@@ -30,7 +31,9 @@
 
     `$python -m main --model_type <model-type> --combine_labels <combine-labels>`
 
-
+4. default values :
+    - model_type : **random_forest**
+    - combine_labels : **true**
 
 ### Please find the evaluation score below for each Models and combine-labels Type
 
